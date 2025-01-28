@@ -2,7 +2,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import EventService from '/src/services/EventService.js'
-
+import router from '@/router'
 const props = defineProps({
   id: {
     required: true,
@@ -17,7 +17,14 @@ onMounted(() => {
       event.value = response.data
     })
     .catch((error) => {
-      console.log(error)
+      if (error.response && error.response.status == 404) {
+        router.push({
+          name: '404Resource',
+          params: { resource: 'event' }
+        })
+      } else {
+        router.push({ name: 'NetworkError' })
+      }
     })
 })
 </script>
@@ -26,13 +33,13 @@ onMounted(() => {
   <div v-if="event">
     <h1>{{ event.title }}</h1>
     <div id="nav">
-      <router-link :to="{ name: 'eventDetails'}">Details</router-link>
+      <router-link :to="{ name: 'eventDetails' }">Details</router-link>
       |
-      <router-link :to="{ name: 'eventRegister'}">Register</router-link>
+      <router-link :to="{ name: 'eventRegister' }">Register</router-link>
       |
-      <router-link :to="{ name: 'eventEdit'}">Edit</router-link>
+      <router-link :to="{ name: 'eventEdit' }">Edit</router-link>
     </div>
-    <router-view :event="event"/>
+    <router-view :event="event" />
   </div>
 </template>
 
@@ -77,5 +84,4 @@ h1 {
 #nav span {
   color: #b0bec5;
 }
-
 </style>

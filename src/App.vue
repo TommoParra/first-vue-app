@@ -1,9 +1,14 @@
 <script setup>
+import { inject } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
+const GStore = inject('GStore')
 </script>
 
 <template>
   <div id="layout">
+    <div class="flashMessage" v-if="GStore.flashMessage">
+      <p>{{ GStore.flashMessage }}</p>
+    </div>
     <header>
       <div class="wrapper">
         <nav>
@@ -82,5 +87,49 @@ nav a.router-link-exact-active {
     gap: 10px;
   }
 }
+
+.flashMessage {
+  position: fixed;
+  top: 20px;
+  left: 10%;
+  background-color: #4caf50; /* Success green */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease, fadeOut 0.5s ease 4s forwards;
+  z-index: 1000;
+  max-width: 80%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Fade out animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+
 </style>
 
