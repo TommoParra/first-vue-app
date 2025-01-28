@@ -2,6 +2,9 @@
 import { ref, onMounted, computed, watchEffect } from 'vue'
 import EventService from '@/services/EventService.js'
 import EventCard from '@/components/EventCard.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const props = defineProps(['page'])
 
@@ -25,7 +28,7 @@ onMounted(() => {
     totalPages.value = Math.ceil(response.headers['x-total-count'] / 4);
   })
   .catch((error) => {
-    console.log(error)
+    router.push({ name: 'NetworkError' })
   })
   })
 
