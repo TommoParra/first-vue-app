@@ -19,19 +19,46 @@ defineProps({
 <style scoped>
 .event-card {
   padding: 20px;
-  width: 250px;
+  width: 100%;
+  max-width: 150px;
+  min-height: 150px;
   cursor: pointer;
-  border: 1px solid #39495c;
-  margin-bottom: 18px;
+  border: 2px solid #1976d2;
+  border-radius: 12px;
+  background-color: #e3f2fd;
+  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.event-card h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: #0d47a1;
+}
+
+.event-card span {
+  font-size: 14px;
+  font-weight: 400;
+  color: #39495c;
 }
 
 .event-card:hover {
-  transform: scale(1.01);
-  box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px) scale(1.02);
+  background-color: #bbdefb;
+  border-color: #0d47a1;
 }
 
 .event-link {
-  color: #2c3e50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   text-decoration: none;
+  color: inherit;
 }
 </style>
